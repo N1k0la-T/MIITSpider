@@ -61,12 +61,12 @@ class MIITSpider():
         token = self.auth()
         if token == -1:
             raise Exception('Token获取失败')
-        captcha = self.getCheckImage(token)
-        if captcha == -1:
-            raise Exception('验证码获取失败')
-        sign = s.checkImage(token, captcha[0], captcha[1])
-        if sign == -1:
-            raise Exception('验证码识别失败')
+        # captcha = self.getCheckImage(token)
+        # if captcha == -1:
+        #     raise Exception('验证码获取失败')
+        # sign = s.checkImage(token, captcha[0], captcha[1])
+        # if sign == -1:
+        #     raise Exception('验证码识别失败')
         url = 'https://hlwicpfwc.miit.gov.cn/icpproject_query/api/icpAbbreviateInfo/queryByCondition'
         data = {
             'pageNum': '',
@@ -75,7 +75,8 @@ class MIITSpider():
             'serviceType': 1
         }
         try:
-            r = self.s.post(url=url, json=data, headers={'Token': token, 'Sign': sign, 'Origin': 'https://beian.miit.gov.cn', 'Referer': 'https://beian.miit.gov.cn/'}).json()
+            # r = self.s.post(url=url, json=data, headers={'Token': token, 'Sign': sign, 'Origin': 'https://beian.miit.gov.cn', 'Referer': 'https://beian.miit.gov.cn/'}).json()
+            r = self.s.post(url=url, json=data, headers={'Token': token, 'Origin': 'https://beian.miit.gov.cn', 'Referer': 'https://beian.miit.gov.cn/'}).json()
             return r['params']['list']
         except:
             raise Exception('备案信息查询失败')
